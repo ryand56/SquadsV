@@ -684,22 +684,22 @@ namespace SquadsV
 
             squad1HatesPlayer.CheckboxChanged += (s, e) =>
             {
-                if (squad1 != null) squad1.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, Relationship.Hate, true);
+                if (squad1 != null) squad1.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, squad1HatesPlayer.Checked ? Relationship.Hate : Relationship.Companion, true);
             };
 
             squad2HatesPlayer.CheckboxChanged += (s, e) =>
             {
-                if (squad2 != null) squad2.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, Relationship.Hate, true);
+                if (squad2 != null) squad2.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, squad2HatesPlayer.Checked ? Relationship.Hate : Relationship.Companion, true);
             };
 
             squad3HatesPlayer.CheckboxChanged += (s, e) =>
             {
-                if (squad3 != null) squad3.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, Relationship.Hate, true);
+                if (squad3 != null) squad3.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, squad3HatesPlayer.Checked ? Relationship.Hate : Relationship.Companion, true);
             };
 
             squad4HatesPlayer.CheckboxChanged += (s, e) =>
             {
-                if (squad4 != null) squad4.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, Relationship.Hate, true);
+                if (squad4 != null) squad4.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, squad4HatesPlayer.Checked ? Relationship.Hate : Relationship.Companion, true);
             };
 
             pool.Add(mainMenu);
