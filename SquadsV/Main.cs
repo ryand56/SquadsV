@@ -148,10 +148,15 @@ namespace SquadsV
         private readonly NativeMenu squad3Relations = new NativeMenu("Squad 3 Relationships");
         private readonly NativeMenu squad4Relations = new NativeMenu("Squad 4 Relationships");
 
-        private readonly NativeItem squad1RelationsHate = new NativeItem("Squad Hate Input");
-        private readonly NativeItem squad2RelationsHate = new NativeItem("Squad Hate Input");
-        private readonly NativeItem squad3RelationsHate = new NativeItem("Squad Hate Input");
-        private readonly NativeItem squad4RelationsHate = new NativeItem("Squad Hate Input");
+        private readonly NativeCheckboxItem squad1HatesPlayer = new NativeCheckboxItem("Hate Player", false);
+        private readonly NativeCheckboxItem squad2HatesPlayer = new NativeCheckboxItem("Hate Player", false);
+        private readonly NativeCheckboxItem squad3HatesPlayer = new NativeCheckboxItem("Hate Player", false);
+        private readonly NativeCheckboxItem squad4HatesPlayer = new NativeCheckboxItem("Hate Player", false);
+
+        private readonly NativeItem squad1RelationsHate = new NativeItem("Hate Input");
+        private readonly NativeItem squad2RelationsHate = new NativeItem("Hate Input");
+        private readonly NativeItem squad3RelationsHate = new NativeItem("Hate Input");
+        private readonly NativeItem squad4RelationsHate = new NativeItem("Hate Input");
 
         private readonly NativeItem squad1Call = new NativeItem("Call Squad");
         private readonly NativeItem squad2Call = new NativeItem("Call Squad");
@@ -231,6 +236,10 @@ namespace SquadsV
             squad3Menu.AddSubMenu(squad3Relations).Title = "Squad Relationships";
             squad4Menu.AddSubMenu(squad4Relations).Title = "Squad Relationships";
 
+            squad1Relations.Add(squad1HatesPlayer);
+            squad2Relations.Add(squad2HatesPlayer);
+            squad3Relations.Add(squad3HatesPlayer);
+            squad4Relations.Add(squad4HatesPlayer);
             squad1Relations.Add(squad1RelationsHate);
             squad2Relations.Add(squad2RelationsHate);
             squad3Relations.Add(squad3RelationsHate);
@@ -261,7 +270,7 @@ namespace SquadsV
                         if (weaponTypes.TryGetValue(squad1MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
                         if (weaponTypes.TryGetValue(squad1SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
-                        squad1 = new Squad(BlipColor.Blue, squad1NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon);
+                        squad1 = new Squad(BlipColor.Blue, squad1NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad1HatesPlayer.Checked);
                         if (squad2 != null) squad1.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), Relationship.Companion, true);
                         if (squad3 != null) squad1.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), Relationship.Companion, true);
                         if (squad4 != null) squad1.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), Relationship.Companion, true);
@@ -301,7 +310,7 @@ namespace SquadsV
                         if (weaponTypes.TryGetValue(squad2MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
                         if (weaponTypes.TryGetValue(squad2SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
-                        squad2 = new Squad(BlipColor.Yellow, squad2NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon);
+                        squad2 = new Squad(BlipColor.Yellow, squad2NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad2HatesPlayer.Checked);
                         if (squad1 != null) squad2.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), Relationship.Companion, true);
                         if (squad3 != null) squad2.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), Relationship.Companion, true);
                         if (squad4 != null) squad2.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), Relationship.Companion, true);
@@ -341,7 +350,7 @@ namespace SquadsV
                         if (weaponTypes.TryGetValue(squad3MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
                         if (weaponTypes.TryGetValue(squad3SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
-                        squad3 = new Squad(BlipColor.Green, squad3NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon);
+                        squad3 = new Squad(BlipColor.Green, squad3NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad3HatesPlayer.Checked);
                         if (squad1 != null) squad3.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), Relationship.Companion, true);
                         if (squad2 != null) squad3.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), Relationship.Companion, true);
                         if (squad4 != null) squad3.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), Relationship.Companion, true);
@@ -381,7 +390,7 @@ namespace SquadsV
                         if (weaponTypes.TryGetValue(squad4MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
                         if (weaponTypes.TryGetValue(squad4SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
-                        squad4 = new Squad(BlipColor.Red, squad4NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon);
+                        squad4 = new Squad(BlipColor.Red, squad4NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad4HatesPlayer.Checked);
                         if (squad1 != null) squad4.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), Relationship.Companion, true);
                         if (squad2 != null) squad4.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), Relationship.Companion, true);
                         if (squad3 != null) squad4.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), Relationship.Companion, true);
@@ -671,6 +680,26 @@ namespace SquadsV
                         }
                     }
                 }
+            };
+
+            squad1HatesPlayer.CheckboxChanged += (s, e) =>
+            {
+                if (squad1 != null) squad1.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, Relationship.Hate, true);
+            };
+
+            squad2HatesPlayer.CheckboxChanged += (s, e) =>
+            {
+                if (squad2 != null) squad2.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, Relationship.Hate, true);
+            };
+
+            squad3HatesPlayer.CheckboxChanged += (s, e) =>
+            {
+                if (squad3 != null) squad3.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, Relationship.Hate, true);
+            };
+
+            squad4HatesPlayer.CheckboxChanged += (s, e) =>
+            {
+                if (squad4 != null) squad4.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, Relationship.Hate, true);
             };
 
             pool.Add(mainMenu);
