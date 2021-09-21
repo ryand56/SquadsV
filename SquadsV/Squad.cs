@@ -85,7 +85,7 @@ namespace SquadsV
             group = World.AddRelationshipGroup(RandomString(rand.Next(10, 25)));
 
             // Set relationship both ways
-            if (friendly) group.SetRelationshipBetweenGroups(Game.Player.Character.RelationshipGroup, Relationship.Companion, true);
+            group.SetRelationshipBetweenGroups(Game.Player.Character.RelationshipGroup, friendly ? Relationship.Companion : Relationship.Hate, true);
 
             // Set blip color
             this.color = color;
@@ -94,10 +94,7 @@ namespace SquadsV
             peds = new List<Ped>(numPeds);
 
             // Set ped and vehicle models
-            Model pedModel = new Model(pedType);
             this.pedType = pedType;
-
-            Model vehicleModel = new Model(vehicleType);
             this.vehicleType = vehicleType;
 
             // Set weapon types
@@ -464,7 +461,7 @@ namespace SquadsV
                 }
                 else
                 {
-                    foreach (Ped ped in peds)
+                    /*foreach (Ped ped in peds)
                     {
                         if (ped.IsInVehicle())
                         {
@@ -472,6 +469,19 @@ namespace SquadsV
                         }
 
                         ped.Task.EnterVehicle(vehicle, VehicleSeat.Any, 5000, 2.0f);
+                    }*/
+                    for (int i = 0; i < peds.Capacity; i++)
+                    {
+                        Ped ped = peds[i];
+                        if (ped != null && ped.Exists())
+                        {
+                            if (ped.IsInVehicle() && !ped.IsInVehicle(vehicle))
+                            {
+                                ped.Task.LeaveVehicle();
+                            }
+
+                            ped.Task.EnterVehicle(vehicle, (VehicleSeat)(i - 1), -1, 2.0f);
+                        }
                     }
                 }
             }
