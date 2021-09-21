@@ -118,6 +118,11 @@ namespace SquadsV
         private readonly NativeCheckboxItem squad3CanExitVehicle = new NativeCheckboxItem("Can Exit Vehicle", false);
         private readonly NativeCheckboxItem squad4CanExitVehicle = new NativeCheckboxItem("Can Exit Vehicle", false);
 
+        private readonly NativeCheckboxItem squad1LeaderReacts = new NativeCheckboxItem("Leader Reacts to Events", true);
+        private readonly NativeCheckboxItem squad2LeaderReacts = new NativeCheckboxItem("Leader Reacts to Events", true);
+        private readonly NativeCheckboxItem squad3LeaderReacts = new NativeCheckboxItem("Leader Reacts to Events", true);
+        private readonly NativeCheckboxItem squad4LeaderReacts = new NativeCheckboxItem("Leader Reacts to Events", true);
+
         private readonly NativeCheckboxItem squad1GodMode = new NativeCheckboxItem("God Mode", false);
         private readonly NativeCheckboxItem squad2GodMode = new NativeCheckboxItem("God Mode", false);
         private readonly NativeCheckboxItem squad3GodMode = new NativeCheckboxItem("God Mode", false);
@@ -208,6 +213,10 @@ namespace SquadsV
             squad2Settings.Add(squad2CanExitVehicle);
             squad3Settings.Add(squad3CanExitVehicle);
             squad4Settings.Add(squad4CanExitVehicle);
+            squad1Settings.Add(squad1LeaderReacts);
+            squad2Settings.Add(squad2LeaderReacts);
+            squad3Settings.Add(squad3LeaderReacts);
+            squad4Settings.Add(squad4LeaderReacts);
             squad1Settings.Add(squad1GodMode);
             squad2Settings.Add(squad2GodMode);
             squad3Settings.Add(squad3GodMode);
@@ -281,6 +290,7 @@ namespace SquadsV
                         }
                         squad1.Spawn();
                         squad1.CanExitVehicle = squad1CanExitVehicle.Checked;
+                        squad1.LeaderReactsToEvents = squad1LeaderReacts.Checked;
                         squad1.Invincible = squad1GodMode.Checked;
                     }
                 }
@@ -321,6 +331,7 @@ namespace SquadsV
                         }
                         squad2.Spawn();
                         squad2.CanExitVehicle = squad2CanExitVehicle.Checked;
+                        squad2.LeaderReactsToEvents = squad2LeaderReacts.Checked;
                         squad2.Invincible = squad2GodMode.Checked;
                     }
                 }
@@ -361,6 +372,7 @@ namespace SquadsV
                         }
                         squad3.Spawn();
                         squad3.CanExitVehicle = squad3CanExitVehicle.Checked;
+                        squad3.LeaderReactsToEvents = squad3LeaderReacts.Checked;
                         squad3.Invincible = squad3GodMode.Checked;
                     }
                 }
@@ -401,6 +413,7 @@ namespace SquadsV
                         }
                         squad4.Spawn();
                         squad4.CanExitVehicle = squad4CanExitVehicle.Checked;
+                        squad4.LeaderReactsToEvents = squad4LeaderReacts.Checked;
                         squad4.Invincible = squad4GodMode.Checked;
                     }
                 }
@@ -432,6 +445,26 @@ namespace SquadsV
             squad4CanExitVehicle.CheckboxChanged += (s, e) =>
             {
                 if (squad4 != null && !squad4.Dead()) squad4.CanExitVehicle = squad4CanExitVehicle.Checked;
+            };
+
+            squad1LeaderReacts.CheckboxChanged += (s, e) =>
+            {
+                if (squad1 != null && !squad1.Dead()) squad1.LeaderReactsToEvents = squad1LeaderReacts.Checked;
+            };
+
+            squad2LeaderReacts.CheckboxChanged += (s, e) =>
+            {
+                if (squad2 != null && !squad2.Dead()) squad2.LeaderReactsToEvents = squad2LeaderReacts.Checked;
+            };
+
+            squad3LeaderReacts.CheckboxChanged += (s, e) =>
+            {
+                if (squad3 != null && !squad3.Dead()) squad3.LeaderReactsToEvents = squad3LeaderReacts.Checked;
+            };
+
+            squad4LeaderReacts.CheckboxChanged += (s, e) =>
+            {
+                if (squad4 != null && !squad4.Dead()) squad4.LeaderReactsToEvents = squad4LeaderReacts.Checked;
             };
 
             squad1GodMode.CheckboxChanged += (s, e) =>
@@ -772,6 +805,7 @@ namespace SquadsV
                         }
                         squad1.Spawn();
                         squad1.CanExitVehicle = squad1CanExitVehicle.Checked;
+                        squad1.LeaderReactsToEvents = squad1LeaderReacts.Checked;
                         squad1.Invincible = squad1GodMode.Checked;
                     }
                     else
@@ -814,6 +848,7 @@ namespace SquadsV
                         }
                         squad2.Spawn();
                         squad2.CanExitVehicle = squad2CanExitVehicle.Checked;
+                        squad2.LeaderReactsToEvents = squad2LeaderReacts.Checked;
                         squad2.Invincible = squad2GodMode.Checked;
                     }
                     else
@@ -856,6 +891,7 @@ namespace SquadsV
                         }
                         squad3.Spawn();
                         squad3.CanExitVehicle = squad3CanExitVehicle.Checked;
+                        squad3.LeaderReactsToEvents = squad3LeaderReacts.Checked;
                         squad3.Invincible = squad3GodMode.Checked;
                     }
                     else
@@ -898,6 +934,7 @@ namespace SquadsV
                         }
                         squad4.Spawn();
                         squad4.CanExitVehicle = squad4CanExitVehicle.Checked;
+                        squad4.LeaderReactsToEvents = squad4LeaderReacts.Checked;
                         squad4.Invincible = squad4GodMode.Checked;
                     }
                     else

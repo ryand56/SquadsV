@@ -112,6 +112,24 @@ namespace SquadsV
 
         public bool InVehicle { get => peds.All(ped => ped.Exists() && ped.IsInVehicle(vehicle)); }
 
+        public bool LeaderReactsToEvents
+        {
+            set
+            {
+                for (int i = 0; i < peds.Capacity; i++)
+                {
+                    if (i == 0)
+                    {
+                        Ped ped = peds[i];
+                        if (ped != null && ped.Exists())
+                        {
+                            ped.BlockPermanentEvents = !value;
+                        }
+                    }
+                }
+            }
+        }
+
         public bool CanExitVehicle
         {
             set
