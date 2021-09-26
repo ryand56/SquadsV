@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -93,7 +94,8 @@ namespace SquadsV
         private static readonly Dictionary<string, WeaponHash> weaponTypes = new Dictionary<string, WeaponHash>()
         {
             { "Pistol", WeaponHash.Pistol },
-            { "Micro SMG", WeaponHash.MicroSMG }
+            { "Micro SMG", WeaponHash.MicroSMG },
+            { "RPG", WeaponHash.RPG }
         };
 
         private static readonly string[] weaponTypesArray = weaponTypes.Keys.ToArray();
@@ -770,9 +772,52 @@ namespace SquadsV
             }
         }
 
+        private SizeF GetScreenResolutionMaintainRatio()
+        {
+            int screenW = GTA.UI.Screen.Resolution.Width;
+            int screenH = GTA.UI.Screen.Resolution.Height;
+
+            float ratio = (float)screenW / screenH;
+
+            float width = 1080f * ratio;
+
+            return new SizeF(width, 1080f);
+        }
+
+        private Point GetSafezoneBounds()
+        {
+            float t = GTA.Native.Function.Call<float>(GTA.Native.Hash.GET_SAFE_ZONE_SIZE);
+            double g = Math.Round(Convert.ToDouble(t), 2);
+            g = (g * 100) - 90;
+            g = 10 - g;
+
+            int screenW = GTA.UI.Screen.Resolution.Width;
+            int screenH = GTA.UI.Screen.Resolution.Height;
+
+            float ratio = (float)screenW / screenH;
+
+            float wmp = ratio * 5.4f;
+
+            return new Point((int)Math.Round(g * wmp), (int)Math.Round(g * 5.4f));
+        }
+
         private void onTick(object sender, EventArgs e)
         {
             pool.Process();
+
+            SizeF screenResolutionMaintainRatio = GetScreenResolutionMaintainRatio();
+            Point safezoneBounds = GetSafezoneBounds();
+
+            int num = 0;
+            if (squad1 != null && squad1.Count > 0)
+            {
+                num += 35;
+
+                LemonUI.Elements.ScaledTexture sprite1 = new LemonUI.Elements.ScaledTexture(new Point(Convert.ToInt32(screenResolutionMaintainRatio.Width) - safezoneBounds.X - num, Convert.ToInt32(screenResolutionMaintainRatio.Height) - safezoneBounds.Y - 364), new Size(34, 250), "timerbars", "all_black_bg");
+                sprite1.Heading = 270f;
+                sprite1.Color = Color.FromArgb(23, 100, 141);
+                sprite1.Draw();
+            }
 
             if (squad1 != null)
             {
