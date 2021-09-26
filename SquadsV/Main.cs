@@ -805,7 +805,7 @@ namespace SquadsV
         {
             pool.Process();
 
-            SizeF screenResolutionMaintainRatio = GetScreenResolutionMaintainRatio();
+            /* SizeF screenResolutionMaintainRatio = GetScreenResolutionMaintainRatio();
             Point safezoneBounds = GetSafezoneBounds();
 
             int num = 0;
@@ -817,7 +817,7 @@ namespace SquadsV
                 sprite1.Heading = 270f;
                 sprite1.Color = Color.FromArgb(23, 100, 141);
                 sprite1.Draw();
-            }
+            } */
 
             if (squad1 != null)
             {
