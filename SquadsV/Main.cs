@@ -93,6 +93,7 @@ namespace SquadsV
 
         private static readonly Dictionary<string, WeaponHash> weaponTypes = new Dictionary<string, WeaponHash>()
         {
+            { "Unarmed", WeaponHash.Unarmed },
             { "Pistol", WeaponHash.Pistol },
             { "Micro SMG", WeaponHash.MicroSMG },
             { "RPG", WeaponHash.RPG }

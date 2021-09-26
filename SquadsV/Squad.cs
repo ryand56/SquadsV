@@ -402,8 +402,8 @@ namespace SquadsV
                 ped.IsPersistent = true;
 
                 Function.Call(Hash.SET_PED_HEARING_RANGE, ped, 9999.0f);
-                ped.Weapons.Give(weaponType1, 9999, true, true);
-                ped.Weapons.Give(weaponType2, 9999, false, true);
+                if (weaponType1 != WeaponHash.Unarmed) ped.Weapons.Give(weaponType1, 9999, true, true);
+                if (weaponType2 != WeaponHash.Unarmed) ped.Weapons.Give(weaponType2, 9999, false, true);
 
                 ped.Accuracy = 50;
 
