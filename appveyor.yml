@@ -6,3 +6,13 @@ branches:
 
 skip_tags: true
 max_jobs: 1
+
+environment:
+  pfx_secret:
+    secure: 2NVW7WO5tvFaSNL2xOiPHgtAChdB0tg7/xd3nYSHa5g=
+  pfx_salt:
+    secure: AuGPavXVWeeE9hjJApCiQ/u4tYhtFiblJp0T0SA9SGQ52s+lFQfEIAgllaXhBpQqiQE4tm72xILn188fa7mniw==
+
+install:
+  - ps: iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
+  - cmd: appveyor-tools\secure-file -decrypt sectigo.pfx.enc -secret %pfx_secret% -salt %pfx_salt%
