@@ -161,6 +161,26 @@ namespace SquadsV
         private readonly NativeCheckboxItem squad3HatesPlayer = new NativeCheckboxItem("Hate Player", false);
         private readonly NativeCheckboxItem squad4HatesPlayer = new NativeCheckboxItem("Hate Player", false);
 
+        // Squad 1
+        private readonly NativeCheckboxItem squad1HatesSquad2 = new NativeCheckboxItem("Hate Squad 2", false);
+        private readonly NativeCheckboxItem squad1HatesSquad3 = new NativeCheckboxItem("Hate Squad 3", false);
+        private readonly NativeCheckboxItem squad1HatesSquad4 = new NativeCheckboxItem("Hate Squad 4", false);
+
+        // Squad 2
+        private readonly NativeCheckboxItem squad2HatesSquad1 = new NativeCheckboxItem("Hate Squad 1", false);
+        private readonly NativeCheckboxItem squad2HatesSquad3 = new NativeCheckboxItem("Hate Squad 3", false);
+        private readonly NativeCheckboxItem squad2HatesSquad4 = new NativeCheckboxItem("Hate Squad 4", false);
+
+        // Squad 3
+        private readonly NativeCheckboxItem squad3HatesSquad1 = new NativeCheckboxItem("Hate Squad 1", false);
+        private readonly NativeCheckboxItem squad3HatesSquad2 = new NativeCheckboxItem("Hate Squad 2", false);
+        private readonly NativeCheckboxItem squad3HatesSquad4 = new NativeCheckboxItem("Hate Squad 4", false);
+
+        // Squad 4
+        private readonly NativeCheckboxItem squad4HatesSquad1 = new NativeCheckboxItem("Hate Squad 1", false);
+        private readonly NativeCheckboxItem squad4HatesSquad2 = new NativeCheckboxItem("Hate Squad 2", false);
+        private readonly NativeCheckboxItem squad4HatesSquad3 = new NativeCheckboxItem("Hate Squad 3", false);
+
         private readonly NativeItem squad1RelationsHate = new NativeItem("Hate Input");
         private readonly NativeItem squad2RelationsHate = new NativeItem("Hate Input");
         private readonly NativeItem squad3RelationsHate = new NativeItem("Hate Input");
@@ -252,6 +272,27 @@ namespace SquadsV
             squad2Relations.Add(squad2HatesPlayer);
             squad3Relations.Add(squad3HatesPlayer);
             squad4Relations.Add(squad4HatesPlayer);
+
+            // Squad 1
+            squad1Relations.Add(squad1HatesSquad2);
+            squad1Relations.Add(squad1HatesSquad3);
+            squad1Relations.Add(squad1HatesSquad4);
+
+            // Squad 2
+            squad2Relations.Add(squad2HatesSquad1);
+            squad2Relations.Add(squad2HatesSquad3);
+            squad2Relations.Add(squad2HatesSquad4);
+
+            // Squad 3
+            squad3Relations.Add(squad3HatesSquad1);
+            squad3Relations.Add(squad3HatesSquad2);
+            squad3Relations.Add(squad3HatesSquad4);
+
+            // Squad 4
+            squad4Relations.Add(squad4HatesSquad1);
+            squad4Relations.Add(squad4HatesSquad2);
+            squad4Relations.Add(squad4HatesSquad3);
+
             squad1Relations.Add(squad1RelationsHate);
             squad2Relations.Add(squad2RelationsHate);
             squad3Relations.Add(squad3RelationsHate);
@@ -283,9 +324,9 @@ namespace SquadsV
                         if (weaponTypes.TryGetValue(squad1SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
                         squad1 = new Squad(BlipColor.Blue, squad1NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad1HatesPlayer.Checked);
-                        if (squad2 != null) squad1.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), Relationship.Companion, true);
-                        if (squad3 != null) squad1.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), Relationship.Companion, true);
-                        if (squad4 != null) squad1.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), Relationship.Companion, true);
+                        if (squad2 != null) squad1.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), squad1HatesSquad2.Checked ? Relationship.Hate : Relationship.Companion, true);
+                        if (squad3 != null) squad1.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), squad1HatesSquad3.Checked ? Relationship.Hate : Relationship.Companion, true);
+                        if (squad4 != null) squad1.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), squad1HatesSquad4.Checked ? Relationship.Hate : Relationship.Companion, true);
                         foreach (KeyValuePair<string, Relationship> kvp in squad1CachedRelations)
                         {
                             int hash = Game.GenerateHash(kvp.Key);
@@ -324,9 +365,9 @@ namespace SquadsV
                         if (weaponTypes.TryGetValue(squad2SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
                         squad2 = new Squad(BlipColor.Yellow, squad2NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad2HatesPlayer.Checked);
-                        if (squad1 != null) squad2.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), Relationship.Companion, true);
-                        if (squad3 != null) squad2.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), Relationship.Companion, true);
-                        if (squad4 != null) squad2.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), Relationship.Companion, true);
+                        if (squad1 != null) squad2.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), squad2HatesSquad1.Checked ? Relationship.Hate : Relationship.Companion, true);
+                        if (squad3 != null) squad2.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), squad2HatesSquad3.Checked ? Relationship.Hate : Relationship.Companion, true);
+                        if (squad4 != null) squad2.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), squad2HatesSquad4.Checked ? Relationship.Hate : Relationship.Companion, true);
                         foreach (KeyValuePair<string, Relationship> kvp in squad2CachedRelations)
                         {
                             int hash = Game.GenerateHash(kvp.Key);
@@ -365,9 +406,9 @@ namespace SquadsV
                         if (weaponTypes.TryGetValue(squad3SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
                         squad3 = new Squad(BlipColor.Green, squad3NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad3HatesPlayer.Checked);
-                        if (squad1 != null) squad3.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), Relationship.Companion, true);
-                        if (squad2 != null) squad3.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), Relationship.Companion, true);
-                        if (squad4 != null) squad3.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), Relationship.Companion, true);
+                        if (squad1 != null) squad3.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), squad3HatesSquad1.Checked ? Relationship.Hate : Relationship.Companion, true);
+                        if (squad2 != null) squad3.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), squad3HatesSquad2.Checked ? Relationship.Hate : Relationship.Companion, true);
+                        if (squad4 != null) squad3.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), squad3HatesSquad4.Checked ? Relationship.Hate : Relationship.Companion, true);
                         foreach (KeyValuePair<string, Relationship> kvp in squad3CachedRelations)
                         {
                             int hash = Game.GenerateHash(kvp.Key);
@@ -406,9 +447,9 @@ namespace SquadsV
                         if (weaponTypes.TryGetValue(squad4SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
                         squad4 = new Squad(BlipColor.Red, squad4NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad4HatesPlayer.Checked);
-                        if (squad1 != null) squad4.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), Relationship.Companion, true);
-                        if (squad2 != null) squad4.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), Relationship.Companion, true);
-                        if (squad3 != null) squad4.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), Relationship.Companion, true);
+                        if (squad1 != null) squad4.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), squad4HatesSquad1.Checked ? Relationship.Hate : Relationship.Companion, true);
+                        if (squad2 != null) squad4.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), squad4HatesSquad2.Checked ? Relationship.Hate : Relationship.Companion, true);
+                        if (squad3 != null) squad4.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), squad4HatesSquad3.Checked ? Relationship.Hate : Relationship.Companion, true);
                         foreach (KeyValuePair<string, Relationship> kvp in squad4CachedRelations)
                         {
                             int hash = Game.GenerateHash(kvp.Key);
@@ -736,6 +777,125 @@ namespace SquadsV
             squad4HatesPlayer.CheckboxChanged += (s, e) =>
             {
                 if (squad4 != null) squad4.SetRelationshipWithGroup(Game.Player.Character.RelationshipGroup, squad4HatesPlayer.Checked ? Relationship.Hate : Relationship.Companion, true);
+            };
+
+            // Hate checkboxes change bidirectionally!!
+
+
+            // Squad 1
+
+            squad1HatesSquad2.CheckboxChanged += (s, e) =>
+            {
+                if (squad1 != null && squad2 != null)
+                {
+                    squad1.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), squad1HatesSquad2.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad2HatesSquad1.Checked = squad1HatesSquad2.Checked;
+                }
+            };
+
+            squad1HatesSquad3.CheckboxChanged += (s, e) =>
+            {
+                if (squad1 != null && squad3 != null)
+                {
+                    squad1.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), squad1HatesSquad3.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad3HatesSquad1.Checked = squad1HatesSquad3.Checked;
+                }
+            };
+
+            squad1HatesSquad4.CheckboxChanged += (s, e) =>
+            {
+                if (squad1 != null && squad4 != null)
+                {
+                    squad1.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), squad1HatesSquad4.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad4HatesSquad1.Checked = squad1HatesSquad4.Checked;
+                }
+            };
+
+            // Squad 2
+
+            squad2HatesSquad1.CheckboxChanged += (s, e) =>
+            {
+                if (squad2 != null && squad1 != null)
+                {
+                    squad2.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), squad2HatesSquad1.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad1HatesSquad2.Checked = squad2HatesSquad1.Checked;
+                }
+            };
+
+            squad2HatesSquad3.CheckboxChanged += (s, e) =>
+            {
+                if (squad2 != null && squad3 != null)
+                {
+                    squad2.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), squad2HatesSquad3.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad3HatesSquad2.Checked = squad2HatesSquad3.Checked;
+                }
+            };
+
+            squad2HatesSquad4.CheckboxChanged += (s, e) =>
+            {
+                if (squad2 != null && squad4 != null)
+                {
+                    squad2.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), squad2HatesSquad4.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad4HatesSquad2.Checked = squad2HatesSquad4.Checked;
+                }
+            };
+
+            // Squad 3
+
+            squad3HatesSquad1.CheckboxChanged += (s, e) =>
+            {
+                if (squad3 != null && squad1 != null)
+                {
+                    squad3.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), squad3HatesSquad1.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad1HatesSquad3.Checked = squad3HatesSquad1.Checked;
+                }
+            };
+
+            squad3HatesSquad2.CheckboxChanged += (s, e) =>
+            {
+                if (squad3 != null && squad2 != null)
+                {
+                    squad3.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), squad3HatesSquad2.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad2HatesSquad3.Checked = squad3HatesSquad2.Checked;
+                }
+            };
+
+            squad3HatesSquad4.CheckboxChanged += (s, e) =>
+            {
+                if (squad3 != null && squad4 != null)
+                {
+                    squad3.SetRelationshipWithGroup(squad4.GetRelationshipGroup(), squad3HatesSquad4.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad4HatesSquad3.Checked = squad3HatesSquad4.Checked;
+                }
+            };
+
+            // Squad 4
+
+            squad4HatesSquad1.CheckboxChanged += (s, e) =>
+            {
+                if (squad4 != null && squad1 != null)
+                {
+                    squad4.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), squad4HatesSquad1.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad1HatesSquad4.Checked = squad4HatesSquad1.Checked;
+                }
+            };
+
+            squad4HatesSquad2.CheckboxChanged += (s, e) =>
+            {
+                if (squad4 != null && squad2 != null)
+                {
+                    squad4.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), squad4HatesSquad2.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad2HatesSquad4.Checked = squad4HatesSquad2.Checked;
+                }
+            };
+
+            squad4HatesSquad3.CheckboxChanged += (s, e) =>
+            {
+                if (squad4 != null && squad3 != null)
+                {
+                    squad4.SetRelationshipWithGroup(squad3.GetRelationshipGroup(), squad4HatesSquad3.Checked ? Relationship.Hate : Relationship.Companion, true);
+                    squad3HatesSquad4.Checked = squad4HatesSquad3.Checked;
+                }
             };
 
             pool.Add(mainMenu);
