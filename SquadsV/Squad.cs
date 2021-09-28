@@ -108,6 +108,11 @@ namespace SquadsV
 
         public int Count { get => peds.Count; }
 
+        /// <summary>
+        /// Copy of the squad peds.
+        /// </summary>
+        public List<Ped> Peds { get => peds; }
+
         public Vehicle Vehicle { get => vehicle; }
 
         public bool InVehicle { get => peds.All(ped => ped.Exists() && ped.IsInVehicle(vehicle)); }
@@ -180,6 +185,7 @@ namespace SquadsV
                 {
                     Blip b = ped.AddBlip();
                     b.IsFriendly = ped.RelationshipGroup.GetRelationshipBetweenGroups(Game.Player.Character.RelationshipGroup) == Relationship.Companion;
+                    b.Sprite = BlipSprite.VIP;
                     b.Color = color;
                     b.ScaleX = .75f;
                     b.ScaleY = .75f;
@@ -196,6 +202,7 @@ namespace SquadsV
                     if (ped.Exists() && ped.AttachedBlip != null)
                     {
                         ped.AttachedBlip.Sprite = sprite;
+                        ped.AttachedBlip.Color = color;
                     }
                 }
             }

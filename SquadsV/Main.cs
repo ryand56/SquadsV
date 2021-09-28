@@ -985,6 +985,17 @@ namespace SquadsV
                         squad1 = null;
                     }
                 }
+                else
+                {
+                    // Check if ped is in combat
+                    foreach (Ped ped in squad1.Peds)
+                    {
+                        if (ped.Exists())
+                        {
+                            squad1.SetPedBlipSprite(ped, ped.IsInCombat ? BlipSprite.ShootingRange : BlipSprite.VIP);
+                        }
+                    }
+                }
             }
 
             if (squad2 != null)
