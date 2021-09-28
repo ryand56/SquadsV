@@ -12,7 +12,15 @@ environment:
     secure: 2NVW7WO5tvFaSNL2xOiPHgtAChdB0tg7/xd3nYSHa5g=
   pfx_salt:
     secure: AuGPavXVWeeE9hjJApCiQ/u4tYhtFiblJp0T0SA9SGQ52s+lFQfEIAgllaXhBpQqiQE4tm72xILn188fa7mniw==
+  pfx_pass:
+    secure: MwHaN8/HEjEae4hmf8FwZg==
 
 install:
   - ps: iex ((New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/appveyor/secure-file/master/install.ps1'))
   - cmd: appveyor-tools\secure-file -decrypt sectigo.pfx.enc -secret %pfx_secret% -salt %pfx_salt%
+
+artifacts:
+  - path: 'SquadsV\bin\Debug\SquadsV.dll'
+
+after_build:
+  - cmd: signtool sign /t http://timestamp.sectigo.com /f sectigo.pfx /p %pfx_pass% "SquadsV\bin\Debug\SquadsV.dll" && signtool sign /tr http://timestamp.sectigo.com /td sha256 /f sectigo.pfx /fd sha256 /p %pfx_pass% /as "SquadsV\bin\Debug\SquadsV.dll"
