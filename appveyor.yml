@@ -23,4 +23,4 @@ artifacts:
   - path: 'SquadsV\bin\Debug\SquadsV.dll'
 
 after_build:
-  - cmd:'c:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe' sign /t http://timestamp.sectigo.com /f sectigo.pfx /p %pfx_pass% "SquadsV\bin\Debug\SquadsV.dll" && 'c:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe' sign /tr http://timestamp.sectigo.com /td sha256 /f sectigo.pfx /fd sha256 /p %pfx_pass% /as "SquadsV\bin\Debug\SquadsV.dll"
+  - cmd:'c:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe' sign /t http://timestamp.sectigo.com /f sectigo.pfx /p %pfx_pass% "%APPVEYOR_BUILD_FOLDER%\SquadsV\bin\Debug\SquadsV.dll" && 'c:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe' sign /tr http://timestamp.sectigo.com /td sha256 /f sectigo.pfx /fd sha256 /p %pfx_pass% /as "%APPVEYOR_BUILD_FOLDER%\SquadsV\bin\Debug\SquadsV.dll"
