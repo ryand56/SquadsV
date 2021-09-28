@@ -107,11 +107,11 @@ namespace SquadsV
         public BlipColor Color { get => color; }
 
         public int Count { get => peds.Count; }
-
-        /// <summary>
-        /// Copy of the squad peds.
-        /// </summary>
-        public List<Ped> Peds { get => peds; }
+		
+		/// <summary>
+		/// Copy of the squad peds.
+		/// </summary>
+		public List<Ped> Peds { get => peds; }
 
         public Vehicle Vehicle { get => vehicle; }
 

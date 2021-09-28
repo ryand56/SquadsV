@@ -987,7 +987,6 @@ namespace SquadsV
                 }
                 else
                 {
-                    // Check if ped is in combat
                     foreach (Ped ped in squad1.Peds)
                     {
                         if (ped.Exists())
@@ -1039,6 +1038,16 @@ namespace SquadsV
                         squad2 = null;
                     }
                 }
+				else
+				{
+					foreach (Ped ped in squad2.Peds)
+                    {
+                        if (ped.Exists())
+                        {
+                            squad2.SetPedBlipSprite(ped, ped.IsInCombat ? BlipSprite.ShootingRange : BlipSprite.VIP);
+                        }
+                    }
+				}
             }
 
             if (squad3 != null)
@@ -1082,6 +1091,16 @@ namespace SquadsV
                         squad3 = null;
                     }
                 }
+				else
+				{
+					foreach (Ped ped in squad3.Peds)
+                    {
+                        if (ped.Exists())
+                        {
+                            squad3.SetPedBlipSprite(ped, ped.IsInCombat ? BlipSprite.ShootingRange : BlipSprite.VIP);
+                        }
+                    }
+				}
             }
 
             if (squad4 != null)
@@ -1125,6 +1144,16 @@ namespace SquadsV
                         squad4 = null;
                     }
                 }
+				else
+				{
+					foreach (Ped ped in squad4.Peds)
+                    {
+                        if (ped.Exists())
+                        {
+                            squad4.SetPedBlipSprite(ped, ped.IsInCombat ? BlipSprite.ShootingRange : BlipSprite.VIP);
+                        }
+                    }
+				}
             }
         }
 
