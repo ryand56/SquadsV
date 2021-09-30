@@ -296,8 +296,8 @@ namespace SquadsV
                 Ped ped = peds[i];
                 if (!ped.Exists() || Function.Call<bool>(Hash.IS_PED_DEAD_OR_DYING, ped, false))
                 {
-                    peds.RemoveAt(i);
                     Died?.Invoke(this, new DiedEventArgs(ped, i + 1));
+                    peds.RemoveAt(i);
                     ped.Health = 0;
                     if (ped.AttachedBlip != null && ped.AttachedBlip.Exists()) ped.AttachedBlip.Delete();
                     ped.MarkAsNoLongerNeeded();

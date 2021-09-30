@@ -348,9 +348,9 @@ namespace SquadsV
 
                         squad1.Died += (sender, args) =>
                         {
-                            if (args.Ped.Exists())
+                            if (args.Ped.Exists() && args.Ped.Killer.Exists())
                             {
-                                GTA.UI.Notification.Show(string.Format("Squad 1 member {0} killed by {1}", args.Index, args.Ped.Killer.ToString()));
+                                GTA.UI.Notification.Show(string.Format("Squad 1 member {0} killed by {1}", args.Index, args.Ped.Killer.Model.ToString()));
                             }
                         };
                     }
@@ -398,9 +398,9 @@ namespace SquadsV
 
                         squad2.Died += (sender, args) =>
                         {
-                            if (args.Ped.Exists())
+                            if (args.Ped.Exists() && args.Ped.Killer.Exists())
                             {
-                                GTA.UI.Notification.Show(string.Format("Squad 2 member {0} killed by {1}", args.Index, args.Ped.Killer.ToString()));
+                                GTA.UI.Notification.Show(string.Format("Squad 2 member {0} killed by {1}", args.Index, args.Ped.Killer.Model.ToString()));
                             }
                         };
                     }
@@ -448,9 +448,9 @@ namespace SquadsV
 
                         squad3.Died += (sender, args) =>
                         {
-                            if (args.Ped.Exists())
+                            if (args.Ped.Exists() && args.Ped.Killer.Exists())
                             {
-                                GTA.UI.Notification.Show(string.Format("Squad 3 member {0} killed by {1}", args.Index, args.Ped.Killer.ToString()));
+                                GTA.UI.Notification.Show(string.Format("Squad 3 member {0} killed by {1}", args.Index, args.Ped.Killer.Model.ToString()));
                             }
                         };
                     }
@@ -498,9 +498,9 @@ namespace SquadsV
 
                         squad4.Died += (sender, args) =>
                         {
-                            if (args.Ped.Exists())
+                            if (args.Ped.Exists() && args.Ped.Killer.Exists())
                             {
-                                GTA.UI.Notification.Show(string.Format("Squad 4 member {0} killed by {1}", args.Index, args.Ped.Killer.ToString()));
+                                GTA.UI.Notification.Show(string.Format("Squad 4 member {0} killed by {1}", args.Index, args.Ped.Killer.Model.ToString()));
                             }
                         };
                     }
