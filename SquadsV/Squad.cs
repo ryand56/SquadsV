@@ -76,6 +76,22 @@ namespace SquadsV
             return random;
         }
 
+        public delegate void DiedEventHandler(object sender, DiedEventArgs e);
+
+        public class DiedEventArgs
+        {
+            public Ped Ped { get; }
+            public int Index { get; }
+
+            public DiedEventArgs(Ped ped, int idx)
+            {
+                Ped = ped;
+                Index = idx;
+            }
+        }
+
+        public event DiedEventHandler Died;
+
         /// <summary>
         /// Initializes a new <see cref="Squad"/>.
         /// </summary>
@@ -281,6 +297,7 @@ namespace SquadsV
                 if (!ped.Exists() || Function.Call<bool>(Hash.IS_PED_DEAD_OR_DYING, ped, false))
                 {
                     peds.RemoveAt(i);
+                    Died?.Invoke(this, new DiedEventArgs(ped, i + 1));
                     ped.Health = 0;
                     if (ped.AttachedBlip != null && ped.AttachedBlip.Exists()) ped.AttachedBlip.Delete();
                     ped.MarkAsNoLongerNeeded();
@@ -289,7 +306,7 @@ namespace SquadsV
                 {
                     result = false;
 
-                    Vector3 playerPos = Game.Player.Character.Position;
+                    /* Vector3 playerPos = Game.Player.Character.Position;
                     Vector3 enemyPos = ped.Position;
 
                     if (Function.Call<float>(Hash.GET_DISTANCE_BETWEEN_COORDS, playerPos.X, playerPos.Y, playerPos.Z, enemyPos.X, enemyPos.Y, enemyPos.Z, false) > 350)
@@ -298,7 +315,7 @@ namespace SquadsV
                         ped.Health = 0;
                         if (ped.AttachedBlip != null && ped.AttachedBlip.Exists()) ped.AttachedBlip.Delete();
                         ped.MarkAsNoLongerNeeded();
-                    }
+                    } */
                 }
             }
 

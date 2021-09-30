@@ -345,6 +345,14 @@ namespace SquadsV
                         squad1.CanExitVehicle = squad1CanExitVehicle.Checked;
                         squad1.LeaderReactsToEvents = squad1LeaderReacts.Checked;
                         squad1.Invincible = squad1GodMode.Checked;
+
+                        squad1.Died += (sender, args) =>
+                        {
+                            if (args.Ped.Exists())
+                            {
+                                GTA.UI.Notification.Show(string.Format("Squad 1 member {0} killed by {1}", args.Index, args.Ped.Killer.ToString()));
+                            }
+                        };
                     }
                 }
                 else if (e.Item == squad1Dismiss)
@@ -387,6 +395,14 @@ namespace SquadsV
                         squad2.CanExitVehicle = squad2CanExitVehicle.Checked;
                         squad2.LeaderReactsToEvents = squad2LeaderReacts.Checked;
                         squad2.Invincible = squad2GodMode.Checked;
+
+                        squad2.Died += (sender, args) =>
+                        {
+                            if (args.Ped.Exists())
+                            {
+                                GTA.UI.Notification.Show(string.Format("Squad 2 member {0} killed by {1}", args.Index, args.Ped.Killer.ToString()));
+                            }
+                        };
                     }
                 }
                 else if (e.Item == squad2Dismiss)
@@ -429,6 +445,14 @@ namespace SquadsV
                         squad3.CanExitVehicle = squad3CanExitVehicle.Checked;
                         squad3.LeaderReactsToEvents = squad3LeaderReacts.Checked;
                         squad3.Invincible = squad3GodMode.Checked;
+
+                        squad3.Died += (sender, args) =>
+                        {
+                            if (args.Ped.Exists())
+                            {
+                                GTA.UI.Notification.Show(string.Format("Squad 3 member {0} killed by {1}", args.Index, args.Ped.Killer.ToString()));
+                            }
+                        };
                     }
                 }
                 else if (e.Item == squad3Dismiss)
@@ -471,6 +495,14 @@ namespace SquadsV
                         squad4.CanExitVehicle = squad4CanExitVehicle.Checked;
                         squad4.LeaderReactsToEvents = squad4LeaderReacts.Checked;
                         squad4.Invincible = squad4GodMode.Checked;
+
+                        squad4.Died += (sender, args) =>
+                        {
+                            if (args.Ped.Exists())
+                            {
+                                GTA.UI.Notification.Show(string.Format("Squad 4 member {0} killed by {1}", args.Index, args.Ped.Killer.ToString()));
+                            }
+                        };
                     }
                 }
                 else if (e.Item == squad4Dismiss)
