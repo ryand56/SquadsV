@@ -136,6 +136,11 @@ namespace SquadsV
         private readonly NativeMenu squad3Tasks = new NativeMenu("Squad 3 Tasks");
         private readonly NativeMenu squad4Tasks = new NativeMenu("Squad 4 Tasks");
 
+        private readonly NativeCheckboxItem squad1FollowPlayer = new NativeCheckboxItem("Follow Player", false);
+        private readonly NativeCheckboxItem squad2FollowPlayer = new NativeCheckboxItem("Follow Player", false);
+        private readonly NativeCheckboxItem squad3FollowPlayer = new NativeCheckboxItem("Follow Player", false);
+        private readonly NativeCheckboxItem squad4FollowPlayer = new NativeCheckboxItem("Follow Player", false);
+
         private readonly NativeItem squad1EnterLeave = new NativeItem("Enter/Leave Vehicle");
         private readonly NativeItem squad2EnterLeave = new NativeItem("Enter/Leave Vehicle");
         private readonly NativeItem squad3EnterLeave = new NativeItem("Enter/Leave Vehicle");
@@ -250,6 +255,10 @@ namespace SquadsV
             squad3Menu.AddSubMenu(squad3Tasks).Title = "Squad Tasks";
             squad4Menu.AddSubMenu(squad4Tasks).Title = "Squad Tasks";
 
+            squad1Tasks.Add(squad1FollowPlayer);
+            squad2Tasks.Add(squad2FollowPlayer);
+            squad3Tasks.Add(squad3FollowPlayer);
+            squad4Tasks.Add(squad4FollowPlayer);
             squad1Tasks.Add(squad1EnterLeave);
             squad2Tasks.Add(squad2EnterLeave);
             squad3Tasks.Add(squad3EnterLeave);
@@ -344,6 +353,7 @@ namespace SquadsV
                     {
                         squad1.Dismiss();
                         squad1 = null;
+                        squad1FollowPlayer.Checked = false;
                     }
                 }
             };
@@ -385,6 +395,7 @@ namespace SquadsV
                     {
                         squad2.Dismiss();
                         squad2 = null;
+                        squad2FollowPlayer.Checked = false;
                     }
                 }
             };
@@ -426,6 +437,7 @@ namespace SquadsV
                     {
                         squad3.Dismiss();
                         squad3 = null;
+                        squad3FollowPlayer.Checked = false;
                     }
                 }
             };
@@ -467,6 +479,7 @@ namespace SquadsV
                     {
                         squad4.Dismiss();
                         squad4 = null;
+                        squad4FollowPlayer.Checked = false;
                     }
                 }
             };
@@ -633,6 +646,26 @@ namespace SquadsV
                 {
                     squad4.EscortVehicle(Game.Player.Character.CurrentVehicle, 50.0f, DrivingStyle.Rushed);
                 }
+            };
+
+            squad1FollowPlayer.CheckboxChanged += (s, e) =>
+            {
+                if (squad1 != null) squad1.FollowPlayer(squad1FollowPlayer.Checked);
+            };
+
+            squad2FollowPlayer.CheckboxChanged += (s, e) =>
+            {
+                if (squad2 != null) squad2.FollowPlayer(squad2FollowPlayer.Checked);
+            };
+
+            squad3FollowPlayer.CheckboxChanged += (s, e) =>
+            {
+                if (squad3 != null) squad3.FollowPlayer(squad3FollowPlayer.Checked);
+            };
+
+            squad4FollowPlayer.CheckboxChanged += (s, e) =>
+            {
+                if (squad4 != null) squad4.FollowPlayer(squad4FollowPlayer.Checked);
             };
 
             squad1Relations.ItemActivated += (s, e) =>

@@ -581,5 +581,31 @@ namespace SquadsV
                 }
             }
         }
+
+        public void FollowPlayer(bool toggle)
+        {
+            if (toggle)
+            {
+                int playerPedGroupIdx = Function.Call<int>(Hash.GET_PED_GROUP_INDEX, Game.Player.Character);
+
+                foreach (Ped ped in peds)
+                {
+                    if (ped.Exists())
+                    {
+                        Function.Call(Hash.SET_PED_AS_GROUP_MEMBER, ped, playerPedGroupIdx);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Ped ped in peds)
+                {
+                    if (ped.Exists())
+                    {
+                        Function.Call(Hash.REMOVE_PED_FROM_GROUP, ped);
+                    }
+                }
+            }
+        }
     }
 }
