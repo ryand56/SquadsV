@@ -203,6 +203,8 @@ namespace SquadsV
 
         public Main()
         {
+            GTA.UI.Notification.Show(string.Format("SquadsV v{0} has loaded.", typeof(Main).Assembly.GetName().Version));
+
             mainMenu.AddSubMenu(squad1Menu).Title = "Squad 1";
             mainMenu.AddSubMenu(squad2Menu).Title = "Squad 2";
             mainMenu.AddSubMenu(squad3Menu).Title = "Squad 3";
