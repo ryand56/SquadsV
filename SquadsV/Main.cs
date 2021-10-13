@@ -59,11 +59,11 @@ namespace SquadsV
         private readonly NativeMenu squad3Settings = new NativeMenu("Squad 3 Settings");
         private readonly NativeMenu squad4Settings = new NativeMenu("Squad 4 Settings");
 
-        private static readonly Dictionary<string, PedHash> pedTypes = new Dictionary<string, PedHash>()
+        private static readonly Dictionary<string, PedHash[]> pedTypes = new Dictionary<string, PedHash[]>()
         {
-            { "Mercenaries", PedHash.MerryWeatherCutscene },
-            { "Ballas", PedHash.BallaEast01GMY },
-            { "Families", PedHash.Famdnf01GMY }
+            { "Mercenaries", new PedHash[] { PedHash.MerryWeatherCutscene } },
+            { "Ballas", new PedHash[] { PedHash.BallaEast01GMY, PedHash.BallaOrig01GMY, PedHash.BallaSout01GMY } },
+            { "Families", new PedHash[] { PedHash.Famdnf01GMY, PedHash.Famca01GMY, PedHash.Families01GFY } }
         };
 
         private static readonly string[] pedTypesArray = pedTypes.Keys.ToArray();
@@ -329,7 +329,12 @@ namespace SquadsV
                         WeaponHash selectedMainWeapon = WeaponHash.MicroSMG;
                         WeaponHash selectedSecondWeapon = WeaponHash.Pistol;
 
-                        if (pedTypes.TryGetValue(squad1PedType.SelectedItem, out PedHash hash1)) selectedPed = hash1;
+                        if (pedTypes.TryGetValue(squad1PedType.SelectedItem, out PedHash[] modelHashes))
+                        {
+                            Random rand = new Random();
+                            selectedPed = modelHashes[rand.Next(1, modelHashes.Length)];
+                        }
+
                         if (vehicleTypes.TryGetValue(squad1VehicleType.SelectedItem, out VehicleHash hash2)) selectedVehicle = hash2;
                         if (weaponTypes.TryGetValue(squad1MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
                         if (weaponTypes.TryGetValue(squad1SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
@@ -379,7 +384,12 @@ namespace SquadsV
                         WeaponHash selectedMainWeapon = WeaponHash.MicroSMG;
                         WeaponHash selectedSecondWeapon = WeaponHash.Pistol;
 
-                        if (pedTypes.TryGetValue(squad2PedType.SelectedItem, out PedHash hash1)) selectedPed = hash1;
+                        if (pedTypes.TryGetValue(squad2PedType.SelectedItem, out PedHash[] modelHashes))
+                        {
+                            Random rand = new Random();
+                            selectedPed = modelHashes[rand.Next(1, modelHashes.Length)];
+                        }
+
                         if (vehicleTypes.TryGetValue(squad2VehicleType.SelectedItem, out VehicleHash hash2)) selectedVehicle = hash2;
                         if (weaponTypes.TryGetValue(squad2MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
                         if (weaponTypes.TryGetValue(squad2SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
@@ -429,7 +439,12 @@ namespace SquadsV
                         WeaponHash selectedMainWeapon = WeaponHash.MicroSMG;
                         WeaponHash selectedSecondWeapon = WeaponHash.Pistol;
 
-                        if (pedTypes.TryGetValue(squad3PedType.SelectedItem, out PedHash hash1)) selectedPed = hash1;
+                        if (pedTypes.TryGetValue(squad3PedType.SelectedItem, out PedHash[] modelHashes))
+                        {
+                            Random rand = new Random();
+                            selectedPed = modelHashes[rand.Next(1, modelHashes.Length)];
+                        }
+
                         if (vehicleTypes.TryGetValue(squad3VehicleType.SelectedItem, out VehicleHash hash2)) selectedVehicle = hash2;
                         if (weaponTypes.TryGetValue(squad3MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
                         if (weaponTypes.TryGetValue(squad3SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
@@ -479,7 +494,12 @@ namespace SquadsV
                         WeaponHash selectedMainWeapon = WeaponHash.MicroSMG;
                         WeaponHash selectedSecondWeapon = WeaponHash.Pistol;
 
-                        if (pedTypes.TryGetValue(squad4PedType.SelectedItem, out PedHash hash1)) selectedPed = hash1;
+                        if (pedTypes.TryGetValue(squad4PedType.SelectedItem, out PedHash[] modelHashes))
+                        {
+                            Random rand = new Random();
+                            selectedPed = modelHashes[rand.Next(1, modelHashes.Length)];
+                        }
+
                         if (vehicleTypes.TryGetValue(squad4VehicleType.SelectedItem, out VehicleHash hash2)) selectedVehicle = hash2;
                         if (weaponTypes.TryGetValue(squad4MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
                         if (weaponTypes.TryGetValue(squad4SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
