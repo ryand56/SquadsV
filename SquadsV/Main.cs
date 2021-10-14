@@ -73,6 +73,11 @@ namespace SquadsV
         private readonly NativeListItem<string> squad3PedType = new NativeListItem<string>("Ped Type", pedTypesArray);
         private readonly NativeListItem<string> squad4PedType = new NativeListItem<string>("Ped Type", pedTypesArray);
 
+        private readonly NativeItem squad1CustomPedType = new NativeItem("Custom Ped Type");
+        private readonly NativeItem squad2CustomPedType = new NativeItem("Custom Ped Type");
+        private readonly NativeItem squad3CustomPedType = new NativeItem("Custom Ped Type");
+        private readonly NativeItem squad4CustomPedType = new NativeItem("Custom Ped Type");
+
         private readonly NativeListItem<int> squad1NumPeds = new NativeListItem<int>("# of Peds", new int[] { 1, 2, 3, 4 });
         private readonly NativeListItem<int> squad2NumPeds = new NativeListItem<int>("# of Peds", new int[] { 1, 2, 3, 4 });
         private readonly NativeListItem<int> squad3NumPeds = new NativeListItem<int>("# of Peds", new int[] { 1, 2, 3, 4 });
@@ -219,6 +224,10 @@ namespace SquadsV
             squad2Settings.Add(squad2PedType);
             squad3Settings.Add(squad3PedType);
             squad4Settings.Add(squad4PedType);
+            squad1Settings.Add(squad1CustomPedType);
+            squad2Settings.Add(squad2CustomPedType);
+            squad3Settings.Add(squad3CustomPedType);
+            squad4Settings.Add(squad4CustomPedType);
             squad1Settings.Add(squad1NumPeds);
             squad2Settings.Add(squad2NumPeds);
             squad3Settings.Add(squad3NumPeds);
@@ -534,6 +543,118 @@ namespace SquadsV
                         squad4.Dismiss();
                         squad4 = null;
                         squad4FollowPlayer.Checked = false;
+                    }
+                }
+            };
+
+            squad1Settings.ItemActivated += (s, e) =>
+            {
+                if (e.Item == squad1CustomPedType)
+                {
+                    string input = Game.GetUserInput();
+                    if (!string.IsNullOrEmpty(input))
+                    {
+                        if (!pedTypes.ContainsKey(input))
+                        {
+                            pedTypes.Add(input, new PedHash[] { (PedHash)Game.GenerateHash(input) });
+                        }
+                        else
+                        {
+                            pedTypes.Remove(input);
+                        }
+
+                        if (!squad1PedType.Items.Contains(input))
+                        {
+                            squad1PedType.Add(input);
+                        }
+                        else
+                        {
+                            squad1PedType.Remove(input);
+                        }
+                    }
+                }
+            };
+
+            squad2Settings.ItemActivated += (s, e) =>
+            {
+                if (e.Item == squad2CustomPedType)
+                {
+                    string input = Game.GetUserInput();
+                    if (!string.IsNullOrEmpty(input))
+                    {
+                        if (!pedTypes.ContainsKey(input))
+                        {
+                            pedTypes.Add(input, new PedHash[] { (PedHash)Game.GenerateHash(input) });
+                        }
+                        else
+                        {
+                            pedTypes.Remove(input);
+                        }
+
+                        if (!squad2PedType.Items.Contains(input))
+                        {
+                            squad2PedType.Add(input);
+                        }
+                        else
+                        {
+                            squad2PedType.Remove(input);
+                        }
+                    }
+                }
+            };
+
+            squad3Settings.ItemActivated += (s, e) =>
+            {
+                if (e.Item == squad3CustomPedType)
+                {
+                    string input = Game.GetUserInput();
+                    if (!string.IsNullOrEmpty(input))
+                    {
+                        if (!pedTypes.ContainsKey(input))
+                        {
+                            pedTypes.Add(input, new PedHash[] { (PedHash)Game.GenerateHash(input) });
+                        }
+                        else
+                        {
+                            pedTypes.Remove(input);
+                        }
+
+                        if (!squad3PedType.Items.Contains(input))
+                        {
+                            squad3PedType.Add(input);
+                        }
+                        else
+                        {
+                            squad3PedType.Remove(input);
+                        }
+                    }
+                }
+            };
+
+            squad4Settings.ItemActivated += (s, e) =>
+            {
+                if (e.Item == squad4CustomPedType)
+                {
+                    string input = Game.GetUserInput();
+                    if (!string.IsNullOrEmpty(input))
+                    {
+                        if (!pedTypes.ContainsKey(input))
+                        {
+                            pedTypes.Add(input, new PedHash[] { (PedHash)Game.GenerateHash(input) });
+                        }
+                        else
+                        {
+                            pedTypes.Remove(input);
+                        }
+
+                        if (!squad4PedType.Items.Contains(input))
+                        {
+                            squad4PedType.Add(input);
+                        }
+                        else
+                        {
+                            squad4PedType.Remove(input);
+                        }
                     }
                 }
             };
