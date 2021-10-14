@@ -381,37 +381,41 @@ namespace SquadsV
             }
             else
             {
-                unsafe
+                Vector3 spawn = new Vector3();
+                int node = 0;
+
+                OutputArgument outArg1 = new OutputArgument();
+                OutputArgument outArg2 = new OutputArgument();
+
+                if (!Function.Call<bool>(Hash.GET_RANDOM_VEHICLE_NODE, playerPos.X, playerPos.Y, playerPos.Z, 150, false, false, false, outArg1, outArg2))
                 {
-                    Vector3 spawn;
-                    int node;
+                    spawn = outArg1.GetResult<Vector3>();
+                    node = outArg2.GetResult<int>();
 
-                    if (!Function.Call<bool>(Hash.GET_RANDOM_VEHICLE_NODE, playerPos.X, playerPos.Y, playerPos.Z, 150, false, false, false, &spawn, &node))
+                    spawn = getRandomOffsetCoord(playerPos, 50, 50);
+                    OutputArgument outArg3 = new OutputArgument();
+
+                    if (Function.Call<bool>(Hash.GET_GROUND_Z_FOR_3D_COORD, spawn.X, spawn.Y, spawn.Z, outArg3, false, false))
                     {
-                        spawn = getRandomOffsetCoord(playerPos, 50, 50);
-                        float groundZ;
-                        if (Function.Call<bool>(Hash.GET_GROUND_Z_FOR_3D_COORD, spawn.X, spawn.Y, spawn.Z, &groundZ, false, false))
-                        {
-                            spawn.Z = groundZ;
-                        }
+                        spawn.Z = outArg3.GetResult<float>();
                     }
-
-                    float xDiff = playerPos.X - spawn.X;
-                    float yDiff = playerPos.Y - spawn.Y;
-
-                    float heading = Function.Call<float>(Hash.GET_HEADING_FROM_VECTOR_2D, xDiff, yDiff);
-
-                    Vehicle veh = World.CreateVehicle(vehicleModel, new Vector3(spawn.X, spawn.Y, spawn.Z + 5), heading);
-                    veh.PlaceOnGround();
-                    veh.IsPersistent = true;
-                    veh.Mods.PrimaryColor = VehicleColor.MetallicBlack;
-                    veh.Mods.SecondaryColor = VehicleColor.MetallicBlack;
-                    veh.IsEngineRunning = true;
-                    veh.ForwardSpeed = 0;
-                    veh.EngineTorqueMultiplier = 2;
-
-                    vehicle = veh;
                 }
+
+                float xDiff = playerPos.X - spawn.X;
+                float yDiff = playerPos.Y - spawn.Y;
+
+                float heading = Function.Call<float>(Hash.GET_HEADING_FROM_VECTOR_2D, xDiff, yDiff);
+
+                Vehicle veh = World.CreateVehicle(vehicleModel, new Vector3(spawn.X, spawn.Y, spawn.Z + 5), heading);
+                veh.PlaceOnGround();
+                veh.IsPersistent = true;
+                veh.Mods.PrimaryColor = VehicleColor.MetallicBlack;
+                veh.Mods.SecondaryColor = VehicleColor.MetallicBlack;
+                veh.IsEngineRunning = true;
+                veh.ForwardSpeed = 0;
+                veh.EngineTorqueMultiplier = 2;
+
+                vehicle = veh;
             }
 
             Vector3 vehiclePos = vehicle.Position;
