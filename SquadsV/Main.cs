@@ -165,6 +165,11 @@ namespace SquadsV
         private readonly NativeItem squad3EscortMe = new NativeItem("Escort my Vehicle");
         private readonly NativeItem squad4EscortMe = new NativeItem("Escort my Vehicle");
 
+        private readonly NativeItem squad1RunToMe = new NativeItem("Get back to me");
+        private readonly NativeItem squad2RunToMe = new NativeItem("Get back to me");
+        private readonly NativeItem squad3RunToMe = new NativeItem("Get back to me");
+        private readonly NativeItem squad4RunToMe = new NativeItem("Get back to me");
+
         private readonly NativeMenu squad1Relations = new NativeMenu("Squad 1 Relationships");
         private readonly NativeMenu squad2Relations = new NativeMenu("Squad 2 Relationships");
         private readonly NativeMenu squad3Relations = new NativeMenu("Squad 3 Relationships");
@@ -282,6 +287,10 @@ namespace SquadsV
             squad2Tasks.Add(squad2EscortMe);
             squad3Tasks.Add(squad3EscortMe);
             squad4Tasks.Add(squad4EscortMe);
+            squad1Tasks.Add(squad1RunToMe);
+            squad2Tasks.Add(squad2RunToMe);
+            squad3Tasks.Add(squad3RunToMe);
+            squad4Tasks.Add(squad4RunToMe);
 
             squad1Menu.AddSubMenu(squad1Relations).Title = "Squad Relationships";
             squad2Menu.AddSubMenu(squad2Relations).Title = "Squad Relationships";
@@ -609,16 +618,13 @@ namespace SquadsV
 
             squad1Tasks.ItemActivated += (s, e) =>
             {
-                if (e.Item == squad1EnterLeave)
+                if (squad1 != null)
                 {
-                    if (squad1 != null)
+                    if (e.Item == squad1EnterLeave)
                     {
                         squad1.EnterLeaveVehicle();
                     }
-                }
-                else if (e.Item == squad1DriveToWp)
-                {
-                    if (squad1 != null)
+                    else if (e.Item == squad1DriveToWp)
                     {
                         if (World.WaypointPosition != Vector3.Zero)
                         {
@@ -626,25 +632,27 @@ namespace SquadsV
                             squad1.FlyTo(World.WaypointPosition, 4, 0, 75.0f, 20.0f, DrivingStyle.Rushed);
                         }
                     }
-                }
-                else if (e.Item == squad1EscortMe)
-                {
-                    squad1.EscortVehicle(Game.Player.Character.CurrentVehicle, 50.0f, DrivingStyle.Rushed);
+                    else if (e.Item == squad1EscortMe)
+                    {
+                        squad1.EscortVehicle(Game.Player.Character.CurrentVehicle, 50.0f, DrivingStyle.Rushed);
+                    }
+                    else if (e.Item == squad1RunToMe)
+                    {
+                        Vector3 playerPos = Game.Player.Character.Position;
+                        squad1.RunTo(new Vector3(playerPos.X + 5, playerPos.Y, playerPos.Z));
+                    }
                 }
             };
 
             squad2Tasks.ItemActivated += (s, e) =>
             {
-                if (e.Item == squad2EnterLeave)
+                if (squad2 != null)
                 {
-                    if (squad2 != null)
+                    if (e.Item == squad2EnterLeave)
                     {
                         squad2.EnterLeaveVehicle();
                     }
-                }
-                else if (e.Item == squad2DriveToWp)
-                {
-                    if (squad2 != null)
+                    else if (e.Item == squad2DriveToWp)
                     {
                         if (World.WaypointPosition != Vector3.Zero)
                         {
@@ -652,25 +660,27 @@ namespace SquadsV
                             squad2.FlyTo(World.WaypointPosition, 4, 0, 75.0f, 20.0f, DrivingStyle.Rushed);
                         }
                     }
-                }
-                else if (e.Item == squad2EscortMe)
-                {
-                    squad2.EscortVehicle(Game.Player.Character.CurrentVehicle, 50.0f, DrivingStyle.Rushed);
+                    else if (e.Item == squad2EscortMe)
+                    {
+                        squad2.EscortVehicle(Game.Player.Character.CurrentVehicle, 50.0f, DrivingStyle.Rushed);
+                    }
+                    else if (e.Item == squad2RunToMe)
+                    {
+                        Vector3 playerPos = Game.Player.Character.Position;
+                        squad2.RunTo(new Vector3(playerPos.X + 5, playerPos.Y, playerPos.Z));
+                    }
                 }
             };
 
             squad3Tasks.ItemActivated += (s, e) =>
             {
-                if (e.Item == squad3EnterLeave)
+                if (squad3 != null)
                 {
-                    if (squad3 != null)
+                    if (e.Item == squad3EnterLeave)
                     {
                         squad3.EnterLeaveVehicle();
                     }
-                }
-                else if (e.Item == squad3DriveToWp)
-                {
-                    if (squad3 != null)
+                    else if (e.Item == squad3DriveToWp)
                     {
                         if (World.WaypointPosition != Vector3.Zero)
                         {
@@ -678,25 +688,27 @@ namespace SquadsV
                             squad3.FlyTo(World.WaypointPosition, 4, 0, 75.0f, 20.0f, DrivingStyle.Rushed);
                         }
                     }
-                }
-                else if (e.Item == squad3EscortMe)
-                {
-                    squad3.EscortVehicle(Game.Player.Character.CurrentVehicle, 50.0f, DrivingStyle.Rushed);
+                    else if (e.Item == squad3EscortMe)
+                    {
+                        squad3.EscortVehicle(Game.Player.Character.CurrentVehicle, 50.0f, DrivingStyle.Rushed);
+                    }
+                    else if (e.Item == squad3RunToMe)
+                    {
+                        Vector3 playerPos = Game.Player.Character.Position;
+                        squad3.RunTo(new Vector3(playerPos.X + 5, playerPos.Y, playerPos.Z));
+                    }
                 }
             };
 
             squad4Tasks.ItemActivated += (s, e) =>
             {
-                if (e.Item == squad4EnterLeave)
+                if (squad4 != null)
                 {
-                    if (squad4 != null)
+                    if (e.Item == squad4EnterLeave)
                     {
                         squad4.EnterLeaveVehicle();
                     }
-                }
-                else if (e.Item == squad4DriveToWp)
-                {
-                    if (squad4 != null)
+                    else if (e.Item == squad4DriveToWp)
                     {
                         if (World.WaypointPosition != Vector3.Zero)
                         {
@@ -704,10 +716,15 @@ namespace SquadsV
                             squad4.FlyTo(World.WaypointPosition, 4, 0, 75.0f, 20.0f, DrivingStyle.Rushed);
                         }
                     }
-                }
-                else if (e.Item == squad4EscortMe)
-                {
-                    squad4.EscortVehicle(Game.Player.Character.CurrentVehicle, 50.0f, DrivingStyle.Rushed);
+                    else if (e.Item == squad4EscortMe)
+                    {
+                        squad4.EscortVehicle(Game.Player.Character.CurrentVehicle, 50.0f, DrivingStyle.Rushed);
+                    }
+                    else if (e.Item == squad4RunToMe)
+                    {
+                        Vector3 playerPos = Game.Player.Character.Position;
+                        squad4.RunTo(new Vector3(playerPos.X + 5, playerPos.Y, playerPos.Z));
+                    }
                 }
             };
 

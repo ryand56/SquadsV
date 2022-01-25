@@ -583,6 +583,24 @@ namespace SquadsV
         }
 
         /// <summary>
+        /// Makes this <see cref="Squad"/> run to the specified <paramref name="position"/>.
+        /// </summary>
+        public void RunTo(Vector3 position, bool ignorePaths = false, int timeout = -1)
+        {
+            if ((vehicle == null || !vehicle.Exists() || !vehicle.IsDriveable) || !InVehicle)
+            {
+                for (int i = 0; i < peds.Capacity; i++)
+                {
+                    Ped ped = peds[i];
+                    if (ped != null && ped.Exists() && ped.Health > 0)
+                    {
+                        ped.Task.RunTo(position, ignorePaths, timeout);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Makes this <see cref="Squad"/> follow the specified <paramref name="target"/>.
         /// </summary>
         public void EscortVehicle(Vehicle target, float speed = 50.0f, DrivingStyle style = DrivingStyle.Normal)
