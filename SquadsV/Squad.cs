@@ -2,7 +2,7 @@
  *  SquadsV
  *  Squad.cs
  *  
- *  Copyright (c) 2021 Ryan Omasta (ElementEmerald)
+ *  Copyright (c) 2022 Ryan Omasta (ElementEmerald)
  * 
  * 
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software

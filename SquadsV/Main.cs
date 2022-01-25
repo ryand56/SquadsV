@@ -2,7 +2,7 @@
  *  SquadsV
  *  Main.cs
  *  
- *  Copyright (c) 2021 Ryan Omasta (ElementEmerald)
+ *  Copyright (c) 2022 Ryan Omasta (ElementEmerald)
  *
  * 
  *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software
@@ -91,25 +91,34 @@ namespace SquadsV
         private readonly NativeListItem<string> squad3VehicleType = new NativeListItem<string>("Vehicle Type", vehicleTypesArray);
         private readonly NativeListItem<string> squad4VehicleType = new NativeListItem<string>("Vehicle Type", vehicleTypesArray);
 
-        private static readonly Dictionary<string, WeaponHash> weaponTypes = new Dictionary<string, WeaponHash>()
+        private static readonly Dictionary<string, WeaponHash> primaryWeaponTypes = new Dictionary<string, WeaponHash>()
         {
             { "Unarmed", WeaponHash.Unarmed },
             { "Pistol", WeaponHash.Pistol },
             { "Micro SMG", WeaponHash.MicroSMG },
+            { "Assault Rifle", WeaponHash.AssaultRifle },
             { "RPG", WeaponHash.RPG }
         };
 
-        private static readonly string[] weaponTypesArray = weaponTypes.Keys.ToArray();
+        private static readonly Dictionary<string, WeaponHash> secondaryWeaponTypes = new Dictionary<string, WeaponHash>()
+        {
+            { "Unarmed", WeaponHash.Unarmed },
+            { "Pistol", WeaponHash.Pistol },
+            { "Micro SMG", WeaponHash.MicroSMG }
+        };
 
-        private readonly NativeListItem<string> squad1MainWeapon = new NativeListItem<string>("Main Weapon", weaponTypesArray);
-        private readonly NativeListItem<string> squad2MainWeapon = new NativeListItem<string>("Main Weapon", weaponTypesArray);
-        private readonly NativeListItem<string> squad3MainWeapon = new NativeListItem<string>("Main Weapon", weaponTypesArray);
-        private readonly NativeListItem<string> squad4MainWeapon = new NativeListItem<string>("Main Weapon", weaponTypesArray);
+        private static readonly string[] primaryWeaponTypesArray = primaryWeaponTypes.Keys.ToArray();
+        private static readonly string[] secondaryWeaponTypesArray = secondaryWeaponTypes.Keys.ToArray();
 
-        private readonly NativeListItem<string> squad1SecondWeapon = new NativeListItem<string>("Secondary Weapon", weaponTypesArray);
-        private readonly NativeListItem<string> squad2SecondWeapon = new NativeListItem<string>("Secondary Weapon", weaponTypesArray);
-        private readonly NativeListItem<string> squad3SecondWeapon = new NativeListItem<string>("Secondary Weapon", weaponTypesArray);
-        private readonly NativeListItem<string> squad4SecondWeapon = new NativeListItem<string>("Secondary Weapon", weaponTypesArray);
+        private readonly NativeListItem<string> squad1MainWeapon = new NativeListItem<string>("Main Weapon", primaryWeaponTypesArray);
+        private readonly NativeListItem<string> squad2MainWeapon = new NativeListItem<string>("Main Weapon", primaryWeaponTypesArray);
+        private readonly NativeListItem<string> squad3MainWeapon = new NativeListItem<string>("Main Weapon", primaryWeaponTypesArray);
+        private readonly NativeListItem<string> squad4MainWeapon = new NativeListItem<string>("Main Weapon", primaryWeaponTypesArray);
+
+        private readonly NativeListItem<string> squad1SecondWeapon = new NativeListItem<string>("Secondary Weapon", secondaryWeaponTypesArray);
+        private readonly NativeListItem<string> squad2SecondWeapon = new NativeListItem<string>("Secondary Weapon", secondaryWeaponTypesArray);
+        private readonly NativeListItem<string> squad3SecondWeapon = new NativeListItem<string>("Secondary Weapon", secondaryWeaponTypesArray);
+        private readonly NativeListItem<string> squad4SecondWeapon = new NativeListItem<string>("Secondary Weapon", secondaryWeaponTypesArray);
 
         private readonly NativeCheckboxItem squad1AutoRespawn = new NativeCheckboxItem("Auto Respawn", true);
         private readonly NativeCheckboxItem squad2AutoRespawn = new NativeCheckboxItem("Auto Respawn", true);
@@ -336,8 +345,8 @@ namespace SquadsV
                         }
 
                         if (vehicleTypes.TryGetValue(squad1VehicleType.SelectedItem, out VehicleHash hash2)) selectedVehicle = hash2;
-                        if (weaponTypes.TryGetValue(squad1MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
-                        if (weaponTypes.TryGetValue(squad1SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
+                        if (primaryWeaponTypes.TryGetValue(squad1MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
+                        if (secondaryWeaponTypes.TryGetValue(squad1SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
                         squad1 = new Squad(BlipColor.Blue, squad1NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad1HatesPlayer.Checked);
                         if (squad2 != null) squad1.SetRelationshipWithGroup(squad2.GetRelationshipGroup(), squad1HatesSquad2.Checked ? Relationship.Hate : Relationship.Companion, true);
@@ -391,8 +400,8 @@ namespace SquadsV
                         }
 
                         if (vehicleTypes.TryGetValue(squad2VehicleType.SelectedItem, out VehicleHash hash2)) selectedVehicle = hash2;
-                        if (weaponTypes.TryGetValue(squad2MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
-                        if (weaponTypes.TryGetValue(squad2SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
+                        if (primaryWeaponTypes.TryGetValue(squad2MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
+                        if (secondaryWeaponTypes.TryGetValue(squad2SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
                         squad2 = new Squad(BlipColor.Yellow, squad2NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad2HatesPlayer.Checked);
                         if (squad1 != null) squad2.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), squad2HatesSquad1.Checked ? Relationship.Hate : Relationship.Companion, true);
@@ -446,8 +455,8 @@ namespace SquadsV
                         }
 
                         if (vehicleTypes.TryGetValue(squad3VehicleType.SelectedItem, out VehicleHash hash2)) selectedVehicle = hash2;
-                        if (weaponTypes.TryGetValue(squad3MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
-                        if (weaponTypes.TryGetValue(squad3SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
+                        if (primaryWeaponTypes.TryGetValue(squad3MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
+                        if (secondaryWeaponTypes.TryGetValue(squad3SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
                         squad3 = new Squad(BlipColor.Green, squad3NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad3HatesPlayer.Checked);
                         if (squad1 != null) squad3.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), squad3HatesSquad1.Checked ? Relationship.Hate : Relationship.Companion, true);
@@ -501,8 +510,8 @@ namespace SquadsV
                         }
 
                         if (vehicleTypes.TryGetValue(squad4VehicleType.SelectedItem, out VehicleHash hash2)) selectedVehicle = hash2;
-                        if (weaponTypes.TryGetValue(squad4MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
-                        if (weaponTypes.TryGetValue(squad4SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
+                        if (primaryWeaponTypes.TryGetValue(squad4MainWeapon.SelectedItem, out WeaponHash hash3)) selectedMainWeapon = hash3;
+                        if (secondaryWeaponTypes.TryGetValue(squad4SecondWeapon.SelectedItem, out WeaponHash hash4)) selectedSecondWeapon = hash4;
 
                         squad4 = new Squad(BlipColor.Red, squad4NumPeds.SelectedItem, selectedPed, selectedVehicle, selectedMainWeapon, selectedSecondWeapon, !squad4HatesPlayer.Checked);
                         if (squad1 != null) squad4.SetRelationshipWithGroup(squad1.GetRelationshipGroup(), squad4HatesSquad1.Checked ? Relationship.Hate : Relationship.Companion, true);
