@@ -803,7 +803,7 @@ namespace SquadsV
                         foreach (KeyValuePair<string, Relationship> kvp in squad6CachedRelations)
                         {
                             int hash = Game.GenerateHash(kvp.Key);
-                            squad4.SetRelationshipWithGroup(new RelationshipGroup(hash), kvp.Value);
+                            squad6.SetRelationshipWithGroup(new RelationshipGroup(hash), kvp.Value);
                         }
                         squad6.Spawn();
                         squad6.CanExitVehicle = squad6CanExitVehicle.Checked;
